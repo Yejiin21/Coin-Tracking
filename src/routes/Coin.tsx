@@ -155,10 +155,10 @@ function Coin() {
   const chartMatch = useMatch("/:coinId/chart");
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId], // 고유한 key값
-    () => fetchCoinInfo(coinId), // fetchCoinInfo 함수
-    {
+    () => fetchCoinInfo(coinId) // fetchCoinInfo 함수
+    /* {
       refetchInterval: 5000, // object
-    }
+    } */
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
@@ -236,7 +236,7 @@ function Coin() {
           </Tabs>
 
           <Routes>
-            <Route path="/price" element={<Price />}></Route>
+            <Route path="/price" element={<Price coinId={coinId} />}></Route>
             <Route path="/chart" element={<Chart coinId={coinId} />}></Route>
           </Routes>
         </>
