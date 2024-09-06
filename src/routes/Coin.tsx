@@ -26,7 +26,14 @@ const Header = styled.header`
   align-itmes: center;
 `;
 
+const BackBtn = styled.button`
+  display: flex;
+  font-size: 42px;
+  padding: 20px;
+`;
+
 const Title = styled.h1`
+  padding: 20px 120px;
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
 `;
@@ -155,32 +162,15 @@ function Coin() {
   const chartMatch = useMatch("/:coinId/chart");
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId], // 고유한 key값
-    () => fetchCoinInfo(coinId) // fetchCoinInfo 함수
-    /* {
+    () => fetchCoinInfo(coinId), // fetchCoinInfo 함수
+    {
       refetchInterval: 5000, // object
-    } */
+    }
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
     () => fetchCoinTicker(coinId)
   );
-  /* const [info, setInfo] = useState<InfoData>();
-  const [priceInfo, setPriceInfo] = useState<PriceData>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    (async () => {
-      const infoData = await (
-        await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-      ).json();
-      const priceData = await (
-        await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-      ).json();
-      setInfo(infoData);
-      setPriceInfo(priceData);
-      setLoading(false);
-    })();
-  }, [coinId]); */
 
   const loading = infoLoading || tickersLoading;
 
@@ -192,6 +182,7 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <BackBtn>&lt;</BackBtn>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
