@@ -12,7 +12,7 @@ import Chart from "./Chart";
 import Price from "./Price";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { fetchCoinInfo, fetchCoinTicker } from "../api";
+import { fetchCoinInfo, fetchCoinPrice } from "../api";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -174,7 +174,7 @@ function Coin() {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTicker(coinId)
+    () => fetchCoinPrice(coinId)
   );
 
   const loading = infoLoading || tickersLoading;
