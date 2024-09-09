@@ -3,6 +3,7 @@ import {
   Routes,
   useLocation,
   useMatch,
+  useNavigate,
   useParams,
 } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -27,6 +28,9 @@ const Header = styled.header`
 `;
 
 const BackBtn = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
   display: flex;
   font-size: 42px;
   padding: 20px;
@@ -160,6 +164,7 @@ function Coin() {
   const { state } = useLocation<RouteState>();
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
+  const navigate = useNavigate();
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId], // 고유한 key값
     () => fetchCoinInfo(coinId), // fetchCoinInfo 함수
@@ -182,7 +187,7 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
-        <BackBtn>&lt;</BackBtn>
+        <BackBtn onClick={() => navigate(-1)}>&lt;</BackBtn>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
