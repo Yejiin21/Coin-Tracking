@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
+import { InfoData, ICoinsProps } from "../interface/interfaces";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -55,25 +56,30 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
-interface ICoin {
-  id: string;
-  name: string;
-  symbol: string;
-  rank: number;
-  is_new: boolean;
-  is_active: boolean;
-  type: string;
-}
+const ThemeModeButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  margin: 10px;
+  border: 2px solid;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+`;
 
-function Coins() {
+function Coins({ toggle, themeMode }: ICoinsProps) {
   // react query가 데이터를 캐시에 저장해두기 때문에 이전페이지로 이동해도 로딩창 안뜸
-  const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
+  const { isLoading, data } = useQuery<InfoData[]>("allCoins", fetchCoins);
 
   return (
     <Container>
       <Helmet>
         <title>코인</title>
       </Helmet>
+      <ThemeModeButton onClick={toggle}>
+        {themeMode ? "🌝" : "🌚"}
+      </ThemeModeButton>
       <Header>
         <Title>코인</Title>
       </Header>

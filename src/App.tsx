@@ -3,7 +3,6 @@ import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./style/theme";
-import { ThemeModeButton } from "./ThemeModeToggle";
 import { useState } from "react";
 
 export const GlobalStyle = createGlobalStyle`
@@ -75,16 +74,15 @@ button{
 `;
 
 function App() {
-  const [themeMode, setThemeMode] = useState<boolean>(true);
-  const Toggle = () => {
+  const [themeMode, setThemeMode] = useState(false);
+  const toggle = () => {
     setThemeMode((prev) => !prev);
   };
 
   return (
     <ThemeProvider theme={themeMode ? lightTheme : darkTheme}>
       <GlobalStyle />
-      <ThemeModeButton themeMode={themeMode} Toggle={Toggle} />
-      <Router />
+      <Router themeMode={themeMode} toggle={toggle} />
       <ReactQueryDevtools initialIsOpen={true} />
     </ThemeProvider>
   );
