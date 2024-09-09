@@ -223,11 +223,11 @@ function Coin() {
           </Overview>
 
           <Tabs>
-            <Tab $isctive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
-            </Tab>
             <Tab $isctive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+            <Tab $isctive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
           </Tabs>
 
