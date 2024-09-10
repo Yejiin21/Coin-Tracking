@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
-import { InfoData, ICoinsProps } from "../interface/interfaces";
+import { InfoData } from "../interface/interfaces";
 import { useSetRecoilState } from "recoil";
 import { themeModeAtom } from "../atom";
 
