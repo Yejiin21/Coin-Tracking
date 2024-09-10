@@ -4,6 +4,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./style/theme";
 import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { themeModeAtom } from "./atom";
 
 export const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -74,15 +76,11 @@ button{
 `;
 
 function App() {
-  const [themeMode, setThemeMode] = useState(false);
-  const toggle = () => {
-    setThemeMode((prev) => !prev);
-  };
-
+  const themeMode = useRecoilValue(themeModeAtom);
   return (
     <ThemeProvider theme={themeMode ? lightTheme : darkTheme}>
       <GlobalStyle />
-      <Router themeMode={themeMode} toggle={toggle} />
+      <Router />
       <ReactQueryDevtools initialIsOpen={true} />
     </ThemeProvider>
   );

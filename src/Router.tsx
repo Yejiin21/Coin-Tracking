@@ -2,20 +2,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Coins from "./routes/Coins";
 import Coin from "./routes/Coin";
 
-interface IRouterProps {
-  toggle: () => void;
-  themeMode: boolean;
-}
+interface IRouterProps {}
 
-function Router({ toggle, themeMode }: IRouterProps) {
+function Router({}: IRouterProps) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={<Coins themeMode={themeMode} toggle={toggle} />}
-        />
-        <Route path="/:coinId/*" element={<Coin themeMode={themeMode} />} />
+        <Route path="/" element={<Coins />} />
+        <Route path="/:coinId/*" element={<Coin />} />
       </Routes>
     </BrowserRouter>
   );

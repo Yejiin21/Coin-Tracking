@@ -105,11 +105,7 @@ interface RouteState {
   name: string;
 }
 
-interface ICoinProps {
-  themeMode: boolean;
-}
-
-function Coin({ themeMode }: ICoinProps) {
+function Coin() {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useMatch("/:coinId/price");
@@ -182,11 +178,8 @@ function Coin({ themeMode }: ICoinProps) {
           </Tabs>
 
           <Routes>
-            <Route path="/price" element={<Price coinId={coinId} />}></Route>
-            <Route
-              path="/chart"
-              element={<Chart coinId={coinId} themeMode={themeMode} />}
-            ></Route>
+            <Route path="/price" element={<Price />}></Route>
+            <Route path="/chart" element={<Chart />}></Route>
           </Routes>
         </>
       )}

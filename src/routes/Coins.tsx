@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet";
 import { InfoData, ICoinsProps } from "../interface/interfaces";
+import { useSetRecoilState } from "recoil";
+import { themeModeAtom } from "../atom";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -68,17 +70,23 @@ const ThemeModeButton = styled.button`
   font-size: 16px;
 `;
 
-function Coins({ toggle, themeMode }: ICoinsProps) {
+function Coins() {
   // react query가 데이터를 캐시에 저장해두기 때문에 이전페이지로 이동해도 로딩창 안뜸
   const { isLoading, data } = useQuery<InfoData[]>("allCoins", fetchCoins);
+
+  // value를 설정(set)하는 function
+  // 여기서는 function을 가져오는데, 이 function이 value를 수정 => React의 setState와 같은 방식으로 작동
+  const setThemeModeAtom = useSetRecoilState<boolean>(themeModeAtom);
+
+  const toggleThemeAtom = () => setThemeModeAtom((prev) => !prev);
 
   return (
     <Container>
       <Helmet>
         <title>코인</title>
       </Helmet>
-      <ThemeModeButton onClick={toggle}>
-        {themeMode ? "🌝" : "🌚"}
+      <ThemeModeButton onClick={toggleThemeAtom}>
+        {setThemeModeAtom ? "🌝" : "🌚"}
       </ThemeModeButton>
       <Header>
         <Title>코인</Title>
